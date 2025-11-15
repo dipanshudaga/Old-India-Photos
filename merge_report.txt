@@ -1,0 +1,6 @@
+Index rows: 7980
+Posts discovered in meta: 1319
+Matched: 4811
+Needs review: 3169
+Post threshold: 0.5
+Image threshold: 0.32

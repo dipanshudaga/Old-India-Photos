@@ -1,0 +1,61 @@
+:root{
+  --bg:#ffffff; --fg:#0b0b0b; --muted:#6f6f6f;
+  --chip-bg:#f2f2f2; --chip-fg:#111; --chip-active-bg:#111; --chip-active-fg:#fff;
+  --search-bg:#f6f6f6; --border:#e9e9e9;
+  --container:1200px; --gap:18px; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.08);
+  --brand-size:28px; --brand-weight:800; --title-size:14px; --title-weight:600;
+  --chip-size:13px; --chip-weight:500; --input-size:15px; --input-weight:500;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+
+/* Header / search / chips */
+.sticky{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid rgba(0,0,0,.06);padding:14px 0}
+.brand{margin:4px 0 12px;text-align:center;font-size:var(--brand-size);font-weight:var(--brand-weight);letter-spacing:.02em}
+
+.searchbar{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:center;background:var(--search-bg);border:1px solid var(--border);border-radius:999px;padding:12px 14px;margin:0 auto;max-width:900px}
+.searchbar .icon{width:20px;height:20px;fill:#9a9a9a}
+.searchbar input{border:0;outline:0;background:transparent;color:var(--fg);font-size:var(--input-size);font-weight:var(--input-weight);width:100%}
+
+/* chips */
+.chips-row{display:flex;align-items:center;gap:10px;margin-top:12px;padding:0 16px;max-width:var(--container)}
+.chip-nav{border:0;background:#ececec;width:34px;height:34px;border-radius:999px;cursor:pointer}
+.chips{display:flex;gap:8px;overflow:hidden;flex:1;scroll-behavior:smooth;mask-image:linear-gradient(to right,transparent 0, black 24px, black calc(100% - 24px), transparent 100%)}
+.chips .chip{padding:8px 12px;white-space:nowrap;border-radius:999px;border:1px solid var(--border);background:var(--chip-bg);color:var(--chip-fg);font-size:var(--chip-size);font-weight:var(--chip-weight);cursor:pointer;transition:all .15s}
+.chips .chip[aria-selected="true"]{background:var(--chip-active-bg);color:var(--chip-active-fg);border-color:var(--chip-active-bg)}
+
+/* Masonry columns (flexi) */
+.masonry{display:flex;gap:var(--gap);margin:14px 0 80px}
+.masonry .col{flex:1;display:flex;flex-direction:column;gap:var(--gap)}
+
+/* Card style (keeps Figma feel) */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .12s;cursor:pointer}
+.card:active{transform:translateY(2px)}
+.card__img{width:100%;height:auto;display:block;object-fit:cover;background:#f2f2f2}
+.card__title{margin:10px 12px 12px;font-size:var(--title-size);font-weight:var(--title-weight);color:#1c1c1c}
+
+/* sentinel for infinite */
+.sentinel{height:1px}
+
+/* modal */
+.modal{position:fixed;inset:0;display:none;z-index:200}
+.modal[aria-hidden="false"]{display:block}
+.modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;animation:fade .18s ease forwards}
+@keyframes fade{to{opacity:1}}
+.modal__panel{position:relative;margin:16px auto;width:min(1120px,calc(100vw - 32px));max-height:calc(100vh - 32px);background:#fff;border-radius:18px;overflow:hidden;display:grid;grid-template-columns:1fr 380px;animation:panelIn .22s ease forwards;transform:translateY(8px);opacity:0}
+@keyframes panelIn{to{transform:none;opacity:1}}
+.modal__close{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:999px;border:0;background:rgba(255,255,255,.9);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.modal__media{background:#000}
+.modal__media img{display:block;width:100%;height:auto;object-fit:contain}
+.modal__meta{padding:18px;border-left:1px solid var(--border);overflow:auto}
+.modal__meta h2{margin:0 0 10px;font-size:18px;font-weight:700}
+.modal__meta p{margin:0;color:#333;line-height:1.55;font-size:14px}
+
+/* responsive columns: you can tweak breakpoints */
+@media (min-width:1400px){ .masonry { /* desktop wide: 5 columns */ } }
+@media (min-width:1200px) and (max-width:1399px){ }
+@media (max-width:900px){ .searchbar{max-width:100%} }
