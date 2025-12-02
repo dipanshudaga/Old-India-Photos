@@ -1751,9 +1751,55 @@
             const newURL = `${window.location.pathname}?${params.toString()}`;
             window.history.pushState({}, '', newURL);
             
-            // Use full-resolution image if available, fallback to thumb
-            const imageUrl = photo.image || photo.thumb;
-            document.getElementById('modalImage').src = imageUrl;
+            // Progressive loading implementation
+            const modalImg = document.getElementById('modalImage');
+            const modalImgContainer = document.querySelector('.modal-image-container');
+            
+            // Reset previous state
+            modalImg.onload = null;
+            modalImg.style.opacity = '0.6';
+            modalImg.style.filter = 'blur(10px)';
+            modalImg.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
+            
+            // Add loading spinner if not present
+            let spinner = modalImgContainer.querySelector('.modal-spinner');
+            if (!spinner) {
+                spinner = document.createElement('div');
+                spinner.className = 'modal-spinner';
+                spinner.innerHTML = '<div class="loading-spinner"></div>';
+                spinner.style.position = 'absolute';
+                spinner.style.top = '50%';
+                spinner.style.left = '50%';
+                spinner.style.transform = 'translate(-50%, -50%)';
+                spinner.style.zIndex = '5';
+                modalImgContainer.appendChild(spinner);
+            }
+            spinner.style.display = 'block';
+            
+            // 1. Show thumbnail immediately (low res, blurred)
+            modalImg.src = photo.thumb;
+            
+            // 2. Load full image in background
+            const fullImg = new Image();
+            const fullImgUrl = photo.image || photo.thumb; // Fallback to thumb if no full image
+            
+            fullImg.onload = function() {
+                // 3. Swap to full image when ready
+                modalImg.src = fullImgUrl;
+                modalImg.style.opacity = '1';
+                modalImg.style.filter = 'blur(0)';
+                spinner.style.display = 'none';
+            };
+            
+            fullImg.onerror = function() {
+                // If full image fails, just show thumbnail clearly
+                modalImg.style.opacity = '1';
+                modalImg.style.filter = 'blur(0)';
+                spinner.style.display = 'none';
+                console.error('Failed to load full image:', fullImgUrl);
+            };
+            
+            fullImg.src = fullImgUrl;
             document.getElementById('modalTitle').textContent = photo.title || '';
             
             const description = document.getElementById('modalDescription');
