@@ -1,8 +1,23 @@
 venv/
-.DS_Store
-*.bak
 __pycache__/
 *.py[cod]
-node_modules/
-*.log
+*.bak
 
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Node modules
+node_modules/
+
+# Images now hosted on GitHub Releases  
+site/images/
+
+# Build/temp files from migration (contain sensitive tokens)
+scripts/
+image_url_mapping.json
+
+# Mac system files
+.DS_Store
+**/.DS_Store
