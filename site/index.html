@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Old India Photos</title>
-    
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5CLWMYH7W"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-Y5CLWMYH7W');
     </script>
-    
+
     <style>
         /* Heroicons base styling */
         .icon {
@@ -202,6 +203,7 @@
                 opacity: 0;
                 transform: translateY(-10px) scale(0.98);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -478,18 +480,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                90deg,
-                rgba(142, 142, 147, 0.08) 0%,
-                rgba(142, 142, 147, 0.15) 50%,
-                rgba(142, 142, 147, 0.08) 100%
-            );
+            background: linear-gradient(90deg,
+                    rgba(142, 142, 147, 0.08) 0%,
+                    rgba(142, 142, 147, 0.15) 50%,
+                    rgba(142, 142, 147, 0.08) 100%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
             border-radius: 10px;
         }
 
-        .photo-card img.loaded ~ .photo-image-wrapper::before {
+        .photo-card img.loaded~.photo-image-wrapper::before {
             display: none;
         }
 
@@ -497,6 +497,7 @@
             0% {
                 background-position: -200% 0;
             }
+
             100% {
                 background-position: 200% 0;
             }
@@ -545,7 +546,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .modal {
@@ -573,6 +576,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -615,6 +619,7 @@
                 opacity: 0;
                 transform: translateY(20px) scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -657,6 +662,25 @@
             justify-content: center;
             margin-bottom: 24px;
             border-radius: 12px;
+        }
+
+        /* Modal image skeleton */
+        .modal-image-skeleton {
+            position: relative;
+            /* Changed from absolute to flow with container */
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 12px;
+            background: linear-gradient(90deg,
+                    rgba(142, 142, 147, 0.08) 0%,
+                    rgba(142, 142, 147, 0.15) 50%,
+                    rgba(142, 142, 147, 0.08) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            /* Ensure it respects the same constraints as the image */
+            width: auto;
+            height: 70vh;
+            object-fit: contain;
         }
 
         .modal-image {
@@ -756,7 +780,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes shareMenuSlideUp {
@@ -764,6 +790,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -959,7 +986,12 @@
             letter-spacing: -0.1px;
         }
 
-        .loading, .no-results {
+        .loading {
+            display: none;
+        }
+
+        .loading,
+        .no-results {
             text-align: center;
             padding: 60px 32px;
             color: #8E8E93;
@@ -1191,18 +1223,21 @@
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1 onclick="goHome()">OLD INDIA PHOTOS</h1>
-        
+
         <div class="search-container">
             <div class="search-box-wrapper">
                 <svg class="icon search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
-                <input type="text" class="search-box" id="searchInput" placeholder="Search photos..." autocomplete="off">
+                <input type="text" class="search-box" id="searchInput" placeholder="Search photos..."
+                    autocomplete="off">
             </div>
-            
+
             <div class="tags-button-wrapper">
                 <button class="tags-button" id="tagsButton" onclick="toggleTagsDropdown()">
                     <span>Search by Tags</span>
@@ -1210,27 +1245,30 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
                 </button>
-                
+
                 <div class="selected-tag-chip" id="selectedTagChip" style="display: none;" onclick="clearSelectedTag()">
                     <span id="selectedTagText"></span>
                     <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </div>
-                
+
                 <div class="tags-dropdown" id="tagsDropdown">
                     <div class="tags-search-box">
                         <svg class="icon tags-search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                         </svg>
                         <input type="text" class="tags-search-input" id="tagsSearchInput" placeholder="Search tags...">
                     </div>
-                    
+
                     <div class="tags-content" id="tagsContent"></div>
                 </div>
-                
+
                 <!-- Mobile backdrop -->
-                <div class="tags-backdrop" id="tagsBackdrop" onclick="document.getElementById('tagsDropdown').classList.remove('active'); this.classList.remove('active');"></div>
+                <div class="tags-backdrop" id="tagsBackdrop"
+                    onclick="document.getElementById('tagsDropdown').classList.remove('active'); this.classList.remove('active');">
+                </div>
             </div>
         </div>
     </div>
@@ -1243,8 +1281,10 @@
         </div>
         <div class="loading" id="loading">Loading photos...</div>
         <div class="no-results" id="noResults" style="display: none;">
-            <svg class="icon-lg no-results-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 64px; height: 64px;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            <svg class="icon-lg no-results-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                style="width: 64px; height: 64px;">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
             </svg>
             <div class="no-results-title">No photos found</div>
             <div class="no-results-text">Try a different search term or explore suggested tags:</div>
@@ -1266,7 +1306,8 @@
                 <img class="modal-image" id="modalImage" src="" alt="">
                 <button class="download-btn" id="downloadBtn" title="Download Image">
                     <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                     </svg>
                 </button>
             </div>
@@ -1294,7 +1335,7 @@
         let imageObserver = null;
         let expandedCategories = new Set();
         let showMoreStates = {};
-        
+
         const STOP_WORDS = new Set([
             'a', 'an', 'the', 'in', 'on', 'at', 'of', 'to', 'for', 'with', 'from', 'by',
             'during', 'been', 'were', 'was', 'are', 'is', 'and', 'or', 'but',
@@ -1305,7 +1346,7 @@
             if (imageObserver) {
                 imageObserver.disconnect();
             }
-            
+
             imageObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1345,27 +1386,27 @@
 
         async function loadData() {
             showLoadingState();
-            
+
             try {
-                const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-                    ? '' 
+                const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? ''
                     : '/Old-India-Photos';
-                
+
                 const [photosResponse, categoriesResponse] = await Promise.all([
                     fetch(`${basePath}/index.json`),
                     fetch(`${basePath}/tag-categories.json`)
                 ]);
-                
+
                 const data = await photosResponse.json();
                 tagCategories = await categoriesResponse.json();
-                
+
                 allPhotos = [];
                 data.forEach(item => {
                     item.images.forEach((image, idx) => {
                         // Use paths as-is from JSON, just like thumbs
                         const imagePath = image.startsWith('http') ? image : `${basePath}/${image}`;
                         const thumbPath = item.thumbs[idx].startsWith('http') ? item.thumbs[idx] : `${basePath}/${item.thumbs[idx]}`;
-                        
+
                         allPhotos.push({
                             ...item,
                             image: imagePath,
@@ -1381,7 +1422,7 @@
                 console.log('   Image path:', allPhotos[0].image);
                 console.log('   Thumb path:', allPhotos[0].thumb);
                 console.log('   Should be: /images/... and /thumbs/...');
-                
+
                 initImageObserver();
                 buildTagsDropdown();
                 loadFromURL();
@@ -1404,13 +1445,13 @@
         function buildTagsDropdown() {
             const content = document.getElementById('tagsContent');
             content.innerHTML = '';
-            
+
             // Popular section (no heading)
             const popularSection = document.createElement('div');
             popularSection.className = 'tags-section';
             popularSection.innerHTML = '<div class="popular-tags" id="popularTags"></div>';
             content.appendChild(popularSection);
-            
+
             const popularTagsContainer = document.getElementById('popularTags');
             tagCategories.popular.forEach(tag => {
                 const chip = document.createElement('div');
@@ -1419,37 +1460,37 @@
                 chip.onclick = () => selectTag(tag);
                 popularTagsContainer.appendChild(chip);
             });
-            
+
             // Categories section (no heading)
             const categoriesSection = document.createElement('div');
             categoriesSection.className = 'tags-section';
-            
+
             // Sort categories by tag count (descending), but keep "Others" at the end
             const categoryEntries = Object.entries(tagCategories.categories);
             const sortedEntries = categoryEntries.sort((a, b) => {
                 const [catA, tagsA] = a;
                 const [catB, tagsB] = b;
-                
+
                 // If either is "Others", it should go last
                 if (catA.toLowerCase().includes('other')) return 1;
                 if (catB.toLowerCase().includes('other')) return -1;
-                
+
                 // Sort by tag count descending
                 return tagsB.length - tagsA.length;
             });
-            
+
             sortedEntries.forEach(([category, tags]) => {
                 const categoryItem = createCategoryItem(category, tags);
                 categoriesSection.appendChild(categoryItem);
             });
-            
+
             content.appendChild(categoriesSection);
         }
 
         function createCategoryItem(category, tags) {
             const item = document.createElement('div');
             item.className = 'category-item';
-            
+
             const header = document.createElement('div');
             header.className = 'category-header';
             header.innerHTML = `
@@ -1461,10 +1502,10 @@
                 </div>
                 <span class="category-count">${tags.length}</span>
             `;
-            
+
             const tagsContainer = document.createElement('div');
             tagsContainer.className = 'category-tags';
-            
+
             const visibleTags = showMoreStates[category] ? tags : tags.slice(0, 10);
             visibleTags.forEach(tag => {
                 const tagChip = document.createElement('div');
@@ -1476,7 +1517,7 @@
                 };
                 tagsContainer.appendChild(tagChip);
             });
-            
+
             if (tags.length > 10) {
                 const showMoreBtn = document.createElement('div');
                 showMoreBtn.className = 'show-more-btn';
@@ -1484,11 +1525,11 @@
                 showMoreBtn.onclick = (e) => {
                     e.stopPropagation(); // Prevent category collapse
                     showMoreStates[category] = !showMoreStates[category];
-                    
+
                     // Rebuild only this category's tags
                     const newTagsContainer = document.createElement('div');
                     newTagsContainer.className = 'category-tags expanded';
-                    
+
                     const newVisibleTags = showMoreStates[category] ? tags : tags.slice(0, 10);
                     newVisibleTags.forEach(tag => {
                         const tagChip = document.createElement('div');
@@ -1500,24 +1541,24 @@
                         };
                         newTagsContainer.appendChild(tagChip);
                     });
-                    
+
                     // Re-add show more button
                     const newShowMoreBtn = document.createElement('div');
                     newShowMoreBtn.className = 'show-more-btn';
                     newShowMoreBtn.textContent = showMoreStates[category] ? 'Show less' : `Show ${tags.length - 10} more`;
                     newShowMoreBtn.onclick = arguments.callee; // Reuse same handler
                     newTagsContainer.appendChild(newShowMoreBtn);
-                    
+
                     // Replace the container
                     tagsContainer.parentNode.replaceChild(newTagsContainer, tagsContainer);
                 };
                 tagsContainer.appendChild(showMoreBtn);
             }
-            
+
             header.onclick = (e) => {
                 // Don't collapse if clicking on count badge
                 if (e.target.classList.contains('category-count')) return;
-                
+
                 const icon = header.querySelector('svg');
                 if (expandedCategories.has(category)) {
                     expandedCategories.delete(category);
@@ -1529,7 +1570,7 @@
                     icon.style.transform = 'rotate(90deg)';
                 }
             };
-            
+
             item.appendChild(header);
             item.appendChild(tagsContainer);
             return item;
@@ -1539,7 +1580,7 @@
             const dropdown = document.getElementById('tagsDropdown');
             const backdrop = document.getElementById('tagsBackdrop');
             dropdown.classList.toggle('active');
-            
+
             // Toggle backdrop on mobile
             if (window.innerWidth <= 768) {
                 backdrop.classList.toggle('active');
@@ -1564,7 +1605,7 @@
             const button = document.getElementById('tagsButton');
             const chip = document.getElementById('selectedTagChip');
             const chipText = document.getElementById('selectedTagText');
-            
+
             if (selectedTag) {
                 button.style.display = 'none';
                 chip.style.display = 'flex';
@@ -1577,37 +1618,37 @@
 
         function performSearch() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-            
+
             // Track search
             if (searchTerm && typeof gtag !== 'undefined') {
                 gtag('event', 'search', {
                     search_term: searchTerm
                 });
             }
-            
+
             // Clear tag when search is performed
             if (searchTerm) {
                 selectedTag = null;
                 updateSelectedTagUI();
             }
-            
+
             if (!searchTerm && !selectedTag) {
                 displayedPhotos = shuffleArray([...allPhotos]);
             } else {
                 const searchWords = searchTerm.split(/\s+/)
                     .filter(w => w && !STOP_WORDS.has(w));
-                
+
                 displayedPhotos = allPhotos.filter(photo => {
                     if (!photo.tag) photo.tag = [];
                     if (!photo.title) photo.title = '';
                     if (!photo.post_description) photo.post_description = '';
-                    
+
                     // Tag filter
                     if (selectedTag) {
                         const hasTag = photo.tag.some(t => t && t.toLowerCase() === selectedTag.toLowerCase());
                         if (!hasTag) return false;
                     }
-                    
+
                     // Search filter (AND logic)
                     if (searchWords.length > 0) {
                         const searchableContent = [
@@ -1615,14 +1656,14 @@
                             photo.post_description.toLowerCase(),
                             ...photo.tag.filter(t => t).map(t => t.toLowerCase())
                         ].join(' ');
-                        
+
                         return searchWords.every(word => searchableContent.includes(word));
                     }
-                    
+
                     return true;
                 });
             }
-            
+
             renderGallery();
             updateURL();
             smoothScrollToTop();
@@ -1635,7 +1676,7 @@
                     tag_name: selectedTag
                 });
             }
-            
+
             if (!selectedTag) {
                 // When clearing tag, just show photos in order instead of shuffling for performance
                 displayedPhotos = [...allPhotos];
@@ -1645,7 +1686,7 @@
                     return photo.tag.some(t => t && t.toLowerCase() === selectedTag.toLowerCase());
                 });
             }
-            
+
             renderGallery();
             updateURL();
             smoothScrollToTop();
@@ -1655,12 +1696,12 @@
             const gallery = document.getElementById('gallery');
             gallery.innerHTML = '';
             currentDisplayIndex = 0;
-            
+
             smoothScrollToTop();
-            
+
             if (displayedPhotos.length === 0) {
                 document.getElementById('noResults').style.display = 'flex';
-                
+
                 // Show suggested tags
                 const suggestedTagsContainer = document.getElementById('suggestedTags');
                 const popularTags = tagCategories.popular.slice(0, 6);
@@ -1678,19 +1719,19 @@
             const card = document.createElement('div');
             card.className = 'photo-card';
             card.onclick = () => openModal(photo);
-            
+
             let paddingBottom = '133%';
             if (photo.thumbWidth && photo.thumbHeight) {
                 paddingBottom = `${(photo.thumbHeight / photo.thumbWidth) * 100}%`;
             }
-            
+
             card.innerHTML = `
                 <div class="photo-image-wrapper" style="padding-bottom: ${paddingBottom};">
                     <img data-src="${photo.thumb}" alt="${photo.title || ''}">
                 </div>
                 <div class="photo-title">${photo.title || ''}</div>
             `;
-            
+
             return card;
         }
 
@@ -1699,24 +1740,24 @@
                 document.getElementById('loadingIndicator').classList.remove('visible');
                 return;
             }
-            
+
             isLoading = true;
             document.getElementById('loadingIndicator').classList.add('visible');
-            
+
             const gallery = document.getElementById('gallery');
             const batch = displayedPhotos.slice(currentDisplayIndex, currentDisplayIndex + PHOTOS_PER_BATCH);
-            
+
             batch.forEach(photo => {
                 const card = createPhotoCard(photo);
                 gallery.appendChild(card);
-                
+
                 const img = card.querySelector('img');
                 imageObserver.observe(img);
             });
-            
+
             currentDisplayIndex += PHOTOS_PER_BATCH;
             isLoading = false;
-            
+
             setTimeout(() => {
                 document.getElementById('loadingIndicator').classList.remove('visible');
             }, 300);
@@ -1724,19 +1765,19 @@
 
         function getRelatedPhotos(photo) {
             if (!photo.tag || photo.tag.length === 0) return [];
-            
+
             const related = allPhotos.filter(p => {
                 if (p.uniqueId === photo.uniqueId) return false;
                 if (!p.tag) return false;
                 return p.tag.some(tag => photo.tag.includes(tag));
             });
-            
+
             return shuffleArray(related).slice(0, 8);
         }
 
         function openModal(photo) {
             currentPhoto = photo;
-            
+
             // Track photo view
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'view_photo', {
@@ -1744,23 +1785,53 @@
                     photo_id: photo.uniqueId
                 });
             }
-            
+
             // Update URL with photo ID
             const params = new URLSearchParams(window.location.search);
             params.set('photo', photo.uniqueId);
             const newURL = `${window.location.pathname}?${params.toString()}`;
             window.history.pushState({}, '', newURL);
-            
+
             // Progressive loading implementation
             const modalImg = document.getElementById('modalImage');
             const modalImgContainer = document.querySelector('.modal-image-container');
-            
+
+            // Calculate aspect ratio from thumbnail dimensions
+            const aspectRatio = photo.thumbWidth && photo.thumbHeight
+                ? `${photo.thumbWidth} / ${photo.thumbHeight}`
+                : '1 / 1';
+
+            // Create or update skeleton with proper aspect ratio
+            let skeleton = modalImgContainer.querySelector('.modal-image-skeleton');
+            if (!skeleton) {
+                skeleton = document.createElement('div');
+                skeleton.className = 'modal-image-skeleton';
+                modalImgContainer.appendChild(skeleton);
+            }
+
+            // Set aspect ratio directly - let CSS handle the sizing!
+            skeleton.style.aspectRatio = aspectRatio;
+
+            // Apply SAME sizing logic to the image to prevent jumps
+            // This forces the image to fill the skeleton's box (upscaling if needed)
+            modalImg.style.aspectRatio = aspectRatio;
+            modalImg.style.height = '70vh';
+            modalImg.style.width = 'auto';
+
+            // If aspect-ratio is not supported (older browsers), fallback to height calculation
+            if (!CSS.supports('aspect-ratio: 1/1')) {
+                skeleton.style.height = '50vh';
+                skeleton.style.width = '100%';
+            }
+
+            skeleton.style.display = 'block';
+
             // Reset previous state
             modalImg.onload = null;
-            modalImg.style.opacity = '0.6';
-            modalImg.style.filter = 'blur(10px)';
-            modalImg.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
-            
+            modalImg.style.opacity = '0';
+            modalImg.style.display = 'none'; // Hide image initially to let skeleton take space
+            modalImg.style.transition = 'opacity 0.5s ease';
+
             // Add loading spinner if not present
             let spinner = modalImgContainer.querySelector('.modal-spinner');
             if (!spinner) {
@@ -1771,37 +1842,40 @@
                 spinner.style.top = '50%';
                 spinner.style.left = '50%';
                 spinner.style.transform = 'translate(-50%, -50%)';
-                spinner.style.zIndex = '5';
+                spinner.style.zIndex = '10';
                 modalImgContainer.appendChild(spinner);
             }
             spinner.style.display = 'block';
-            
-            // 1. Show thumbnail immediately (low res, blurred)
-            modalImg.src = photo.thumb;
-            
-            // 2. Load full image in background
+
+            // Load full image
             const fullImg = new Image();
             const fullImgUrl = photo.image || photo.thumb; // Fallback to thumb if no full image
-            
-            fullImg.onload = function() {
-                // 3. Swap to full image when ready
+
+            fullImg.onload = function () {
+                // Swap to full image when ready
                 modalImg.src = fullImgUrl;
-                modalImg.style.opacity = '1';
-                modalImg.style.filter = 'blur(0)';
-                spinner.style.display = 'none';
+                modalImg.style.display = 'block';
+                // Small delay to allow display:block to apply before opacity transition
+                requestAnimationFrame(() => {
+                    modalImg.style.opacity = '1';
+                    spinner.style.display = 'none';
+                    skeleton.style.display = 'none';
+                });
             };
-            
-            fullImg.onerror = function() {
-                // If full image fails, just show thumbnail clearly
+
+            fullImg.onerror = function () {
+                // If full image fails, show thumbnail
+                modalImg.src = photo.thumb;
+                modalImg.style.display = 'block';
                 modalImg.style.opacity = '1';
-                modalImg.style.filter = 'blur(0)';
                 spinner.style.display = 'none';
+                skeleton.style.display = 'none';
                 console.error('Failed to load full image:', fullImgUrl);
             };
-            
+
             fullImg.src = fullImgUrl;
             document.getElementById('modalTitle').textContent = photo.title || '';
-            
+
             const description = document.getElementById('modalDescription');
             if (photo.post_description && photo.post_description.trim()) {
                 description.textContent = photo.post_description;
@@ -1809,13 +1883,13 @@
             } else {
                 description.style.display = 'none';
             }
-            
+
             const tagsContainer = document.getElementById('modalTags');
             const validTags = (photo.tag || []).filter(tag => tag && !STOP_WORDS.has(tag.toLowerCase()));
             tagsContainer.innerHTML = validTags
                 .map(tag => `<span class="modal-tag" onclick="selectTagFromModal('${tag.replace(/'/g, "\\'")}')">${tag}</span>`)
                 .join('');
-            
+
             const relatedPhotos = getRelatedPhotos(photo);
             const carousel = document.getElementById('relatedCarousel');
             carousel.innerHTML = relatedPhotos
@@ -1826,7 +1900,7 @@
                     </div>
                 `)
                 .join('');
-            
+
             document.getElementById('modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1841,11 +1915,11 @@
         function closeModal() {
             document.getElementById('modal').classList.remove('active');
             document.body.style.overflow = '';
-            
+
             // Remove photo parameter from URL
             const params = new URLSearchParams(window.location.search);
             params.delete('photo');
-            const newURL = params.toString() 
+            const newURL = params.toString()
                 ? `${window.location.pathname}?${params.toString()}`
                 : window.location.pathname;
             window.history.pushState({}, '', newURL);
@@ -1853,31 +1927,31 @@
 
         async function downloadImage() {
             if (!currentPhoto) return;
-            
+
             try {
                 // Get the full-size image URL
                 const imageUrl = currentPhoto.image || currentPhoto.thumb;
-                
+
                 // Fetch the image as a blob
                 const response = await fetch(imageUrl);
                 const blob = await response.blob();
-                
+
                 // Create a temporary URL for the blob
                 const blobUrl = window.URL.createObjectURL(blob);
-                
+
                 // Create download link
                 const link = document.createElement('a');
                 link.href = blobUrl;
                 link.download = `${(currentPhoto.title || 'old-india-photo').replace(/[^a-z0-9]/gi, '_').toLowerCase()}.jpg`;
-                
+
                 // Trigger download
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                
+
                 // Clean up the blob URL
                 setTimeout(() => window.URL.revokeObjectURL(blobUrl), 100);
-                
+
                 // Track download
                 if (typeof gtag !== 'undefined') {
                     gtag('event', 'download_image', {
@@ -1885,11 +1959,11 @@
                         photo_id: currentPhoto.uniqueId
                     });
                 }
-                
+
                 showToast('Image downloaded!');
             } catch (error) {
                 console.error('Download failed:', error);
-                
+
                 // Fallback: try direct download
                 const link = document.createElement('a');
                 link.href = currentPhoto.image || currentPhoto.thumb;
@@ -1917,7 +1991,7 @@
             try {
                 await navigator.clipboard.writeText(url);
                 showToast('Link copied to clipboard!');
-                
+
                 // Track share
                 if (typeof gtag !== 'undefined') {
                     gtag('event', 'share', {
@@ -1936,7 +2010,7 @@
         function shareToFacebook() {
             const url = getPhotoUrl();
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-            
+
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'share', {
                     method: 'facebook',
@@ -1951,7 +2025,7 @@
             const url = getPhotoUrl();
             const text = `Check out this historical photo: ${currentPhoto.title || 'Old India Photo'}`;
             window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
-            
+
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'share', {
                     method: 'twitter',
@@ -1966,7 +2040,7 @@
             const url = getPhotoUrl();
             const text = `Check out this historical photo: ${currentPhoto.title || 'Old India Photo'} ${url}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-            
+
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'share', {
                     method: 'whatsapp',
@@ -1981,7 +2055,7 @@
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.classList.add('show');
-            
+
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
@@ -1998,18 +2072,18 @@
         function updateURL() {
             const params = new URLSearchParams();
             const searchTerm = document.getElementById('searchInput').value.trim();
-            
+
             if (searchTerm) {
                 params.set('q', searchTerm);
             }
             if (selectedTag) {
                 params.set('tag', selectedTag);
             }
-            
-            const newURL = params.toString() 
+
+            const newURL = params.toString()
                 ? `${window.location.pathname}?${params.toString()}`
                 : window.location.pathname;
-            
+
             window.history.pushState({}, '', newURL);
         }
 
@@ -2018,7 +2092,7 @@
             const query = params.get('q');
             const tag = params.get('tag');
             const photoId = params.get('photo');
-            
+
             if (photoId) {
                 // Open specific photo
                 const photo = allPhotos.find(p => p.uniqueId === photoId);
@@ -2026,7 +2100,7 @@
                     openModal(photo);
                 }
             }
-            
+
             if (tag) {
                 selectedTag = tag;
                 updateSelectedTagUI();
@@ -2043,15 +2117,15 @@
 
         // Event Listeners
         document.getElementById('searchInput').addEventListener('input', performSearch);
-        
+
         document.getElementById('tagsSearchInput').addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             const sections = document.querySelectorAll('.category-item');
-            
+
             sections.forEach(section => {
                 const tags = section.querySelectorAll('.category-tag-chip');
                 let hasVisibleTags = false;
-                
+
                 tags.forEach(tag => {
                     const text = tag.textContent.toLowerCase();
                     if (text.includes(searchTerm)) {
@@ -2061,42 +2135,42 @@
                         tag.style.display = 'none';
                     }
                 });
-                
+
                 section.style.display = hasVisibleTags ? 'block' : 'none';
             });
         });
-        
+
         document.getElementById('modalClose').addEventListener('click', closeModal);
-        
+
         document.getElementById('downloadBtn').addEventListener('click', (e) => {
             e.stopPropagation();
             downloadImage();
         });
-        
+
         document.getElementById('modal').addEventListener('click', (e) => {
             if (e.target.id === 'modal') {
                 closeModal();
             }
         });
-        
+
         document.addEventListener('click', (e) => {
             const dropdown = document.getElementById('tagsDropdown');
             const backdrop = document.getElementById('tagsBackdrop');
             const button = document.getElementById('tagsButton');
             const chip = document.getElementById('selectedTagChip');
-            
+
             if (!dropdown.contains(e.target) && !button.contains(e.target) && !chip.contains(e.target)) {
                 dropdown.classList.remove('active');
                 backdrop.classList.remove('active');
             }
         });
-        
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 const modal = document.getElementById('modal');
                 const dropdown = document.getElementById('tagsDropdown');
                 const backdrop = document.getElementById('tagsBackdrop');
-                
+
                 if (modal.classList.contains('active')) {
                     closeModal();
                 } else if (dropdown.classList.contains('active')) {
@@ -2105,7 +2179,7 @@
                 }
             } else if (modal.classList.contains('active') && currentPhoto) {
                 const currentIndex = displayedPhotos.findIndex(p => p.uniqueId === currentPhoto.uniqueId);
-                
+
                 if (e.key === 'ArrowRight' && currentIndex < displayedPhotos.length - 1) {
                     // Next photo
                     openModal(displayedPhotos[currentIndex + 1]);
@@ -2115,40 +2189,40 @@
                 }
             }
         });
-        
+
         window.addEventListener('scroll', () => {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
                 loadMorePhotos();
             }
         });
-        
+
         window.addEventListener('popstate', () => {
             loadFromURL();
         });
-        
+
         // Initialize
         loadData();
 
         // Mobile swipe support for modal
         let touchStartX = 0;
         let touchEndX = 0;
-        
+
         document.getElementById('modal').addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
-        
+
         document.getElementById('modal').addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             handleSwipe();
         }, { passive: true });
-        
+
         function handleSwipe() {
             const swipeThreshold = 50;
             const diff = touchStartX - touchEndX;
-            
+
             if (Math.abs(diff) > swipeThreshold && currentPhoto) {
                 const currentIndex = displayedPhotos.findIndex(p => p.uniqueId === currentPhoto.uniqueId);
-                
+
                 if (diff > 0 && currentIndex < displayedPhotos.length - 1) {
                     // Swipe left - next photo
                     openModal(displayedPhotos[currentIndex + 1]);
@@ -2158,33 +2232,34 @@
                 }
             }
         }
-        
+
         // Pull to refresh detection
         let touchStartY = 0;
         let isPulling = false;
-        
+
         window.addEventListener('touchstart', (e) => {
             if (window.scrollY === 0) {
                 touchStartY = e.touches[0].clientY;
                 isPulling = true;
             }
         }, { passive: true });
-        
+
         window.addEventListener('touchmove', (e) => {
             if (isPulling && window.scrollY === 0) {
                 const touchY = e.touches[0].clientY;
                 const pullDistance = touchY - touchStartY;
-                
+
                 if (pullDistance > 100) {
                     isPulling = false;
                     location.reload();
                 }
             }
         }, { passive: true });
-        
+
         window.addEventListener('touchend', () => {
             isPulling = false;
         }, { passive: true });
     </script>
 </body>
+
 </html>
