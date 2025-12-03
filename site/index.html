@@ -85,11 +85,40 @@
 
         .search-icon {
             position: absolute;
-            left: 14px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
             color: #8E8E93;
             pointer-events: none;
+        }
+
+        .search-clear-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(142, 142, 147, 0.12);
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 0;
+            color: #8E8E93;
+        }
+
+        .search-clear-btn:hover {
+            background: rgba(142, 142, 147, 0.2);
+            color: #1C1C1E;
+        }
+
+        .search-clear-btn .icon {
+            width: 14px;
+            height: 14px;
         }
 
         .search-box {
@@ -1236,6 +1265,11 @@
                 </svg>
                 <input type="text" class="search-box" id="searchInput" placeholder="Search photos..."
                     autocomplete="off">
+                <button class="search-clear-btn" id="searchClearBtn" style="display: none;" title="Clear search">
+                    <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
 
             <div class="tags-button-wrapper">
@@ -1527,11 +1561,11 @@
                     showMoreStates[category] = !showMoreStates[category];
 
                     // Rebuild only this category's tags
+                    // Show all tags
                     const newTagsContainer = document.createElement('div');
                     newTagsContainer.className = 'category-tags expanded';
 
-                    const newVisibleTags = showMoreStates[category] ? tags : tags.slice(0, 10);
-                    newVisibleTags.forEach(tag => {
+                    tags.forEach(tag => {
                         const tagChip = document.createElement('div');
                         tagChip.className = 'category-tag-chip';
                         tagChip.textContent = tag;
@@ -1542,15 +1576,11 @@
                         newTagsContainer.appendChild(tagChip);
                     });
 
-                    // Re-add show more button
-                    const newShowMoreBtn = document.createElement('div');
-                    newShowMoreBtn.className = 'show-more-btn';
-                    newShowMoreBtn.textContent = showMoreStates[category] ? 'Show less' : `Show ${tags.length - 10} more`;
-                    newShowMoreBtn.onclick = arguments.callee; // Reuse same handler
-                    newTagsContainer.appendChild(newShowMoreBtn);
-
                     // Replace the container
                     tagsContainer.parentNode.replaceChild(newTagsContainer, tagsContainer);
+
+                    // Update state to remember this category is fully expanded
+                    showMoreStates[category] = true;
                 };
                 tagsContainer.appendChild(showMoreBtn);
             }
@@ -1560,13 +1590,18 @@
                 if (e.target.classList.contains('category-count')) return;
 
                 const icon = header.querySelector('svg');
-                if (expandedCategories.has(category)) {
+                // Check if currently expanded by checking the class on the sibling container
+                // We need to re-query the container because it might have been replaced by "Show more"
+                const currentContainer = item.querySelector('.category-tags');
+                const isExpanded = currentContainer.classList.contains('expanded');
+
+                if (isExpanded) {
                     expandedCategories.delete(category);
-                    tagsContainer.classList.remove('expanded');
+                    currentContainer.classList.remove('expanded');
                     icon.style.transform = 'rotate(0deg)';
                 } else {
                     expandedCategories.add(category);
-                    tagsContainer.classList.add('expanded');
+                    currentContainer.classList.add('expanded');
                     icon.style.transform = 'rotate(90deg)';
                 }
             };
@@ -2198,6 +2233,27 @@
 
         window.addEventListener('popstate', () => {
             loadFromURL();
+        });
+
+        // Search clear button functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchClearBtn = document.getElementById('searchClearBtn');
+
+        searchInput.addEventListener('input', () => {
+            if (searchInput.value.trim()) {
+                searchClearBtn.style.display = 'flex';
+            } else {
+                searchClearBtn.style.display = 'none';
+            }
+        });
+
+        searchClearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchClearBtn.style.display = 'none';
+            searchInput.focus();
+            // Trigger search
+            const event = new Event('input', { bubbles: true });
+            searchInput.dispatchEvent(event);
         });
 
         // Initialize
