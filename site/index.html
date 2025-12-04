@@ -501,36 +501,7 @@
             opacity: 1;
         }
 
-        /* Skeleton loader */
-        .photo-image-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg,
-                    rgba(142, 142, 147, 0.04) 0%,
-                    rgba(142, 142, 147, 0.08) 50%,
-                    rgba(142, 142, 147, 0.04) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 2s ease-in-out infinite;
-            border-radius: 10px;
-        }
-
-        .photo-card img.loaded~.photo-image-wrapper::before {
-            display: none;
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-
-            100% {
-                background-position: 200% 0;
-            }
-        }
+        /* Removed skeleton loader for cleaner look */
 
         /* Blur-up effect */
         .photo-card img[data-loaded="false"] {
@@ -693,24 +664,7 @@
             border-radius: 12px;
         }
 
-        /* Modal image skeleton */
-        .modal-image-skeleton {
-            position: relative;
-            /* Changed from absolute to flow with container */
-            max-width: 100%;
-            max-height: 70vh;
-            border-radius: 12px;
-            background: linear-gradient(90deg,
-                    rgba(142, 142, 147, 0.04) 0%,
-                    rgba(142, 142, 147, 0.08) 50%,
-                    rgba(142, 142, 147, 0.04) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 2s ease-in-out infinite;
-            /* Ensure it respects the same constraints as the image */
-            width: auto;
-            height: 70vh;
-            object-fit: contain;
-        }
+        /* Modal image skeleton removed */
 
         .modal-image {
             max-width: 100%;
@@ -1022,18 +976,6 @@
             color: #8E8E93;
             font-size: 17px;
             letter-spacing: -0.2px;
-        }
-
-        .loading::before {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 40px;
-            margin: 0 auto 20px;
-            border: 3px solid rgba(0, 122, 255, 0.1);
-            border-top-color: #007AFF;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
         }
 
         .loading,
