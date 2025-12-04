@@ -1020,6 +1020,18 @@
             color: #8E8E93;
             font-size: 17px;
             letter-spacing: -0.2px;
+            width: 100%;
+            grid-column: 1 / -1;
+        }
+
+        .loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #E5E5EA;
+            border-top-color: #007AFF;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            animation: spin 1s linear infinite;
         }
 
         .loading,
@@ -1316,7 +1328,10 @@
             <div class="loading-spinner"></div>
             <div>Loading more photos...</div>
         </div>
-        <div class="loading" id="loading">Loading photos...</div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading photos...</p>
+        </div>
         <div class="no-results" id="noResults" style="display: none;">
             <svg class="icon-lg no-results-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 style="width: 64px; height: 64px;">
@@ -1409,20 +1424,10 @@
             smoothScrollToTop();
         }
 
-        function showLoadingState() {
-            const gallery = document.getElementById('gallery');
-            gallery.innerHTML = `
-                <div style="text-align: center; padding: 60px 20px; color: #8E8E93; width: 100%; grid-column: 1 / -1;">
-                    <div style="width: 40px; height: 40px; border: 3px solid #E5E5EA; 
-                                border-top-color: #007AFF; border-radius: 50%; 
-                                margin: 0 auto 16px; animation: spin 1s linear infinite;"></div>
-                    <p style="font-size: 17px;">Loading photos...</p>
-                </div>
-            `;
-        }
+
 
         async function loadData() {
-            showLoadingState();
+            document.getElementById('loading').style.display = 'block';
 
             try {
                 const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
@@ -2147,8 +2152,8 @@
                 document.getElementById('searchInput').value = query;
                 performSearch();
             } else {
-                // Don't shuffle all photos initially - just show them in order for faster load
-                displayedPhotos = [...allPhotos];
+                // Shuffle photos on initial load as well
+                displayedPhotos = shuffleArray([...allPhotos]);
                 renderGallery();
             }
         }
