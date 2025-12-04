@@ -1382,7 +1382,7 @@
         let selectedTag = null;
         let tagCategories = null;
         let currentDisplayIndex = 0;
-        const PHOTOS_PER_BATCH = 50;
+        const PHOTOS_PER_BATCH = 100;
         let isLoading = false;
         let imageObserver = null;
         let expandedCategories = new Set();
@@ -1411,7 +1411,7 @@
                         }
                     }
                 });
-            }, { rootMargin: '100px' });
+            }, { rootMargin: '500px' });
         }
 
         function goHome() {
@@ -1721,8 +1721,8 @@
             }
 
             if (!selectedTag) {
-                // When clearing tag, just show photos in order instead of shuffling for performance
-                displayedPhotos = [...allPhotos];
+                // When clearing tag, shuffle to keep homepage dynamic
+                displayedPhotos = shuffleArray([...allPhotos]);
             } else {
                 displayedPhotos = allPhotos.filter(photo => {
                     if (!photo.tag || !Array.isArray(photo.tag)) return false;
